@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>PlatziTareas</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="flexbox">
+                <li class="box">
+                    <figure class="nav-assets">
+                        <img src="{{url_for('static',filename='assets/logo.jpg')}}" class="img-1">
+                    </figure>
+                </li>  
+            </ul>
+        </nav>
+    </header>
+
+    <section class="container">
+        <div class="item tareas">
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>id</th>
+                    <th>descripcion</th>
+                </tr>
+                {% for tarea in tareas%}
+                
+                <tr>
+                    <td>#{{loop.index}}</td>
+                    <td>{{tarea.0}}</td>
+                    <td>{{tarea.1}}</td>
+                </tr> 
+                {% endfor %}
+            </table>
+        </div>
+        <div class="item agregar">
+            <form action="{{url_for('add_task')}}" id="add" >
+                <label form="add">Agregar Tarea</label>
+                <hr>
+                <label for="descripcion">Descripcion:</label><br>
+                <input type="text" id="descripcion" name="descripcion"><br>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+        <div class="item editar">
+            <form action="{{url_for('edit_task')}}" id="edit">
+                <label form="edit">Editar Tarea</label><br>
+                <hr>
+                <label for="edit-task">Elige una tarea</label>
+                <select id="edit-task" name="edit-task"><br>
+                    <option value="opciones" selected >Opciones</option>
+                    {% for tarea in tareas%}
+                    <option value="{{tarea.0}}">{{ tarea.1 | capitalize}}</option>
+                    {% endfor %}
+                </select><br>
+                <label for="nueva-tarea">Editar Tarea:</label><br>
+                <input type="text" id="nueva-tarea" name="nueva-tarea"><br>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+        <div class="item borrar">
+            <form action="{{url_for('delete_task')}}" id="delete">
+                <label form="delete">Borrar Tarea</label><br>
+                <hr>
+                <label for="delete-task">Elige una tarea</label>
+                <select id="delete-task" name="delete-task"><br>
+                    <option value="opciones" selected >Opciones</option> 
+                    {% for tarea in tareas%}
+                    <option value="{{tarea.0}}">{{ tarea.1 | capitalize}}</option>
+                    {% endfor %}
+                </select><br>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+    </section>
+    <footer class="footer-container">
+        <p>Todos los derechos reservados @karencofre </p>
+    </footer>
+</body>
+</html>
