@@ -26,7 +26,6 @@ def add_task():
 @app.route("/edit_task")
 def edit_task():
 	uid = request.args.get("edit-task")
-	print("UID"+uid)
 	nueva_tarea = request.args.get("nueva-tarea")
 	editar_tareas(nueva_tarea,uid)
 	return redirect(url_for("index"))
